@@ -26,14 +26,14 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
 //static files
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 
 //port
-const PORT = 8080 || process.env.PORT;
+const PORT = 8000 || process.env.PORT;
 
 //listen server
 app.listen(PORT, () => {

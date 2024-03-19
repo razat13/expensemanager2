@@ -52,6 +52,7 @@ const addTransection = async (req, res) => {
   try {
     // const newTransection = new transectionModel(req.body);
     const newTransection = new transectionModel(req.body);
+    console.log(req.body)
     await newTransection.save();
     res.status(201).send("Transection Created");
   } catch (error) {

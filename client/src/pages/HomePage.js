@@ -75,7 +75,7 @@ const HomePage = () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         setLoading(true);
-        const res = await axios.post("/api/v1/transections/get-transection", {
+        const res = await axios.post("http://localhost:8000/api/v1/transections/get-transection", {
           userid: user._id,
           frequency,
           selectedDate,
@@ -94,7 +94,7 @@ const HomePage = () => {
   const handleDelete = async (record) => {
     try {
       setLoading(true);
-      await axios.post("/api/v1/transections/delete-transection", {
+      await axios.post("http://localhost:8000/api/v1/transections/delete-transection", {
         transacationId: record._id,
       });
       setLoading(false);
@@ -110,21 +110,28 @@ const HomePage = () => {
   const handleSubmit = async (values) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
+      const tempData = {
+        ...values,
+        userid: user._id,
+      }
       setLoading(true);
       if (editable) {
-        await axios.post("/api/v1/transections/edit-transection", {
-          payload: {
-            ...values,
-            userId: user._id,
-          },
+        await axios.post("http://localhost:8000/api/v1/transections/edit-transection", {
+          ...values,
+          userid: user._id,
           transacationId: editable._id,
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
         setLoading(false);
         message.success("Transaction Updated Successfully");
       } else {
-        await axios.post("/api/v1/transections/add-transection", {
-          ...values,
-          userid: user._id,
+        await axios.post("http://localhost:8000/api/v1/transections/add-transection", tempData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
         setLoading(false);
         message.success("Transaction Added Successfully");
@@ -166,15 +173,13 @@ const HomePage = () => {
         </div>
         <div className="switch-icons">
           <UnorderedListOutlined
-            className={`mx-2 ${
-              viewData === "table" ? "active-icon" : "inactive-icon"
-            }`}
+            className={`mx-2 ${viewData === "table" ? "active-icon" : "inactive-icon"
+              }`}
             onClick={() => setViewData("table")}
           />
           <AreaChartOutlined
-            className={`mx-2 ${
-              viewData === "analytics" ? "active-icon" : "inactive-icon"
-            }`}
+            className={`mx-2 ${viewData === "analytics" ? "active-icon" : "inactive-icon"
+              }`}
             onClick={() => setViewData("analytics")}
           />
         </div>

@@ -11,7 +11,12 @@ const Register = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      await axios.post("/api/v1/users/register", values);
+      const requestBody = JSON.stringify(values);
+      await axios.post("http://localhost:8000/api/v1/users/register", requestBody, {
+        headers: {
+          "Content-Type": "application/json", // Specify the content type as JSON
+        },
+      });
       message.success("Registeration Successfull");
       setLoading(false);
       navigate("/login");

@@ -13,12 +13,18 @@ const Login = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/v1/users/login", values);
+      const requestBody = JSON.stringify(values);
+      const data = await axios.post("http://localhost:8000/api/v1/users/login", requestBody, {
+        headers: {
+          "Content-Type": "application/json", // Specify the content type as JSON
+        },
+      });
       setLoading(false);
       message.success("login success");
+      console.log(data.data.user)
       localStorage.setItem(
         "user",
-        JSON.stringify({ ...data.user, password: "" })
+        JSON.stringify({...data.data.user, password: "xxxx"})
       );
       navigate("/");
     } catch (error) {
