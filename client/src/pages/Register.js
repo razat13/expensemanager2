@@ -12,7 +12,7 @@ const Register = () => {
     try {
       setLoading(true);
       const requestBody = JSON.stringify(values);
-      await axios.post("http://localhost:8000/api/v1/users/register", requestBody, {
+      await axios.post("https://expensemanager2.vercel.app/api/v1/users/register", requestBody, {
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
         },
