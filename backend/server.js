@@ -18,7 +18,9 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
-
+app.get("/", function (req, res) {
+  res.send("working");
+});
 //routes
 //user routes
 app.use("/api/v1/users", require("./routes/userRoute"));
@@ -26,10 +28,10 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 app.use("/api/v1/transections", require("./routes/transectionRoutes"));
 
 //static files
-app.use(express.static(path.join(__dirname, "../client/public")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 //port
