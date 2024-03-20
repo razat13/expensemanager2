@@ -14,7 +14,7 @@ const Login = () => {
     try {
       setLoading(true);
       const requestBody = JSON.stringify(values);
-      const data = await axios.post("http://localhost:8000/api/v1/users/login", requestBody, {
+      const data = await axios.post("https://expensemanager2.vercel.app/api/v1/users/login", requestBody, {
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
         },
